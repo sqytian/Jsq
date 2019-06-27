@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.person.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.person.model.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="BIGINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="graduate_school" property="graduateSchool" jdbcType="VARCHAR" />
+    <result column="specialized" property="specialized" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="workplace" property="workplace" jdbcType="VARCHAR" />
+    <result column="place_work" property="placeWork" jdbcType="VARCHAR" />
+    <result column="reserved_first" property="reservedFirst" jdbcType="VARCHAR" />
+    <result column="reserved_second" property="reservedSecond" jdbcType="VARCHAR" />
+    <result column="reserved_third" property="reservedThird" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, password, mobile, nickname, role, created, updated, deleted, times, graduate_school, 
+    specialized, company_name, workplace, place_work, reserved_first, reserved_second, 
+    reserved_third
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="getUserList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from user
+		       ${sqlCondition} ${orderBy}
+	</select>
+	
+	<select id="queryByMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from user
+        where mobile = #{mobile,jdbcType=BIGINT}
+    </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.m1c.gczj.person.model.User" >
+    insert into user (id, password, mobile, 
+      nickname, role, created, 
+      updated, deleted, times, 
+      graduate_school, specialized, company_name, 
+      workplace, place_work, reserved_first, 
+      reserved_second, reserved_third)
+    values (#{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=BIGINT}, 
+      #{nickname,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{times,jdbcType=INTEGER}, 
+      #{graduateSchool,jdbcType=VARCHAR}, #{specialized,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{workplace,jdbcType=VARCHAR}, #{placeWork,jdbcType=VARCHAR}, #{reservedFirst,jdbcType=VARCHAR}, 
+      #{reservedSecond,jdbcType=VARCHAR}, #{reservedThird,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.person.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="graduateSchool != null" >
+        graduate_school,
+      </if>
+      <if test="specialized != null" >
+        specialized,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="workplace != null" >
+        workplace,
+      </if>
+      <if test="placeWork != null" >
+        place_work,
+      </if>
+      <if test="reservedFirst != null" >
+        reserved_first,
+      </if>
+      <if test="reservedSecond != null" >
+        reserved_second,
+      </if>
+      <if test="reservedThird != null" >
+        reserved_third,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=BIGINT},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="graduateSchool != null" >
+        #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="specialized != null" >
+        #{specialized,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null" >
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="placeWork != null" >
+        #{placeWork,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedFirst != null" >
+        #{reservedFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedSecond != null" >
+        #{reservedSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedThird != null" >
+        #{reservedThird,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.person.model.User" >
+    update user
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=BIGINT},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="graduateSchool != null" >
+        graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="specialized != null" >
+        specialized = #{specialized,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null" >
+        workplace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="placeWork != null" >
+        place_work = #{placeWork,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedFirst != null" >
+        reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedSecond != null" >
+        reserved_second = #{reservedSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedThird != null" >
+        reserved_third = #{reservedThird,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.person.model.User" >
+    update user
+    set password = #{password,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=BIGINT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT},
+      times = #{times,jdbcType=INTEGER},
+      graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      specialized = #{specialized,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
+      place_work = #{placeWork,jdbcType=VARCHAR},
+      reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      reserved_second = #{reservedSecond,jdbcType=VARCHAR},
+      reserved_third = #{reservedThird,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

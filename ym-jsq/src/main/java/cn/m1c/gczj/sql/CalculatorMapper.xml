@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.CalculatorDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.Calculator" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="calculator_name" property="calculatorName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, created, updated, deleted, type, calculator_name, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from calculator
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="getCalculatorList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from calculator
+		       ${sqlCondition}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from calculator
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.m1c.gczj.biz.model.Calculator" >
+    insert into calculator (id, created, updated, 
+      deleted, type, calculator_name, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{type,jdbcType=INTEGER}, #{calculatorName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.Calculator" >
+    insert into calculator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="calculatorName != null" >
+        calculator_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="calculatorName != null" >
+        #{calculatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.Calculator" >
+    update calculator
+    <set >
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="calculatorName != null" >
+        calculator_name = #{calculatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.Calculator" >
+    update calculator
+    set created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT},
+      type = #{type,jdbcType=INTEGER},
+      calculator_name = #{calculatorName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

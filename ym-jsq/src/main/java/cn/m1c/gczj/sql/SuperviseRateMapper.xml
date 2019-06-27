@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.SuperviseRateDao" >
+    <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.SuperviseRate" >
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="rate" property="rate" jdbcType="VARCHAR" />
+        <result column="rate_level" property="rateLevel" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+        <result column="formula_id" property="formulaId" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="created" property="created" jdbcType="TIMESTAMP" />
+        <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="BIT" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+    id, rate, rate_level,price, area_code, formula_id,remark,created, updated, deleted
+    </sql>
+    
+    <sql id="Find_Where" >
+        <where >
+            <if test="id != null and id !='' " >
+                 AND id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="rate != null and rate !='' " >
+                 AND rate = #{rate,jdbcType=VARCHAR}
+            </if>
+            <if test="rateLevel != null and rateLevel !='' " >
+                 AND rate_level = #{rateLevel,jdbcType=INTEGER}
+            </if>
+            <if test="price != null and price !='' " >
+                 AND price = #{price,jdbcType=DECIMAL}
+            </if>
+            <if test="areaCode != null and areaCode !='' " >
+                 AND area_code = #{areaCode,jdbcType=VARCHAR}
+            </if>
+            <if test="formulaId != null and formulaId !='' " >
+                 AND formula_id = #{formulaId,jdbcType=VARCHAR}
+            </if>
+             <if test="remark != null and remark !='' " >
+                 AND remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="created != null and created !='' " >
+                 AND created = #{created,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updated != null and updated !='' " >
+                 AND updated = #{updated,jdbcType=TIMESTAMP}
+            </if>
+            <if test="deleted != null and deleted !='' " >
+                 AND deleted = #{deleted,jdbcType=BIT}
+            </if>
+        </where>
+    </sql>
+    <insert id="insert" parameterType="cn.m1c.gczj.biz.model.SuperviseRate" >
+        insert into supervise_rate (id, rate, rate_level, 
+            price, area_code, formula_id, remark,
+            created, updated, deleted
+            )
+        values (#{id,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, #{rateLevel,jdbcType=INTEGER}, 
+            #{price,jdbcType=DECIMAL}, #{areaCode,jdbcType=VARCHAR}, #{formulaId,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},  
+            #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.SuperviseRate" >
+        insert into supervise_rate
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="rate != null" >
+                rate,
+            </if>
+            <if test="rateLevel != null" >
+                rate_level,
+            </if>
+            <if test="price != null" >
+                price,
+            </if>
+            <if test="areaCode != null" >
+                area_code,
+            </if>
+            <if test="formulaId != null" >
+                formula_id,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="created != null" >
+                created,
+            </if>
+            <if test="updated != null" >
+                updated,
+            </if>
+            <if test="deleted != null" >
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="rate != null" >
+                #{rate,jdbcType=VARCHAR},
+            </if>
+            <if test="rateLevel != null" >
+                #{rateLevel,jdbcType=INTEGER},
+            </if>
+            <if test="price != null" >
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="areaCode != null" >
+                #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="formulaId != null" >
+                #{formulaId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null" >
+                #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+       <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.SuperviseRate" >
+        update supervise_rate
+        <set >
+            <if test="rate != null" >
+                rate = #{rate,jdbcType=VARCHAR},
+            </if>
+            <if test="rateLevel != null" >
+                rate_level = #{rateLevel,jdbcType=INTEGER},
+            </if>
+            <if test="time != null" >
+                time = #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null" >
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="created != null" >
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                updated = #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+            <if test="areaCode != null" >
+                area_code = #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="formulaId != null" >
+                formula_id = #{formulaId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.SuperviseRate" >
+        update supervise_rate
+        set rate = #{rate,jdbcType=VARCHAR},
+            rate_level = #{rateLevel,jdbcType=INTEGER},
+            price = #{price,jdbcType=DECIMAL},
+            created = #{created,jdbcType=TIMESTAMP},
+            updated = #{updated,jdbcType=TIMESTAMP},
+            deleted = #{deleted,jdbcType=BIT},
+            area_code = #{areaCode,jdbcType=VARCHAR},
+            formula_id = #{formulaId,jdbcType=VARCHAR},
+            remark = #{remark,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    
+    
+    
+    <select id="getRateByMoney" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.biz.model.SuperviseRate" >
+        select 
+        <include refid="Base_Column_List" />
+        from supervise_rate WHERE price=#{price,jdbcType=DECIMAL}>=price
+        AND deleted = 0 
+        ORDER BY rate_level DESC
+    </select>
+    
+    <select id="queryByModel" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.biz.model.SuperviseRate" >
+        select 
+        <include refid="Base_Column_List" />
+        from supervise_rate
+        <include refid="Find_Where" />
+    </select>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from supervise_rate
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from supervise_rate
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+</mapper>

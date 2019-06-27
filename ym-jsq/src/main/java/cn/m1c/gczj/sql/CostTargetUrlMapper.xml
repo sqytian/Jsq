@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.CostTargetUrlDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.CostTargetUrl" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="document_name" property="documentName" jdbcType="VARCHAR" />
+    <result column="url_data" property="urlData" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, type_name, document_name, url_data, created, updated, deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cost_target_url
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getListTypePage" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from cost_target_url
+		       ${sqlCondition} ${orderBy}
+  </select>
+  
+  <select id="getListByType" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from cost_target_url
+    where type = #{type,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cost_target_url
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.m1c.gczj.biz.model.CostTargetUrl" >
+    insert into cost_target_url (id, type, type_name, 
+      document_name, url_data, created, 
+      updated, deleted)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
+      #{documentName,jdbcType=VARCHAR}, #{urlData,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.CostTargetUrl" >
+    insert into cost_target_url
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="documentName != null" >
+        document_name,
+      </if>
+      <if test="urlData != null" >
+        url_data,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="documentName != null" >
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="urlData != null" >
+        #{urlData,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.CostTargetUrl" >
+    update cost_target_url
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="documentName != null" >
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="urlData != null" >
+        url_data = #{urlData,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.CostTargetUrl" >
+    update cost_target_url
+    set type = #{type,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      document_name = #{documentName,jdbcType=VARCHAR},
+      url_data = #{urlData,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

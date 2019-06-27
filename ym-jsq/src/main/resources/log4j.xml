@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="consoleInfoLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	
+	<appender name="consoleDebugLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+	
+	<appender name="consoleErrorLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="traceLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/wladdr-app_trace.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="debugLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/wladdr-app_debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<appender name="infoLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/wladdr-app_info.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+
+	<appender name="warnLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/wladdr-app_warn.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="WARN" />
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+
+	<appender name="errorLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/wladdr-app_error.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] [%t] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c-%M:(%L)] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<!-- "cn.com" \u53CA\u5176\u5B50\u5305\u4E0B\u7684\u65E5\u5FD7 -->
+	<logger name="cn.m1c">
+		<level value="ALL" />
+		<appender-ref ref="consoleDebugLog" /> 
+      	<appender-ref ref="consoleInfoLog" /> 
+		<appender-ref ref="consoleErrorLog" />
+		
+		<appender-ref ref="traceLog" />
+ 		<appender-ref ref="infoLog" />
+ 		<appender-ref ref="warnLog" />
+ 		<appender-ref ref="errorLog" />
+ 		<appender-ref ref="debugLog" />
+	</logger>
+	
+	<!-- \u5168\u5C40\u914D\u7F6E\uFF0C\u9ED8\u8BA4\u53EA\u6253\u5370error\u548Cfatal\u7EA7\u522B\u7684\u9519\u8BEF\u65E5\u5FD7 -->	
+	<root>  
+		<appender-ref ref="consoleErrorLog" />
+		<appender-ref ref="errorLog" /> 
+	</root>  
+		 
+	
+	
+</log4j:configuration> 

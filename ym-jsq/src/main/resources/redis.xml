@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+    <!-- Jedis线程 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.pool.maxTotal}" />
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+		<property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+	</bean>
+	
+	<!-- 配置多个redis的方式，start -->
+	<!-- <bean id="jedis.shardInfo.0" class="redis.clients.jedis.JedisShardInfo">
+		<constructor-arg index="0" value="${redis.ip.0}" />
+		<constructor-arg index="1" value="${redis.port.0}" />
+	</bean> -->
+	<!--
+	<bean id="jedis.shardInfo.1" class="redis.clients.jedis.JedisShardInfo">
+		<constructor-arg index="0" value="${redis.ip.1}" />
+		<constructor-arg index="1" value="${redis.port.1}" />
+	</bean>
+	-->
+	<!-- <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1">
+			<list>
+				<ref bean="jedis.shardInfo.0" />
+				<ref bean="jedis.shardInfo.1" />
+			</list>
+		</constructor-arg>
+	</bean> -->
+	<!-- 配置多个redis的方式，end -->
+	
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		
+		<!-- 以下是配置多个redis的方式 :start  -->
+		<!--<property name="shardInfo" value="shardedJedisPool"></property>-->
+		<!-- 以上是配置多个reids的方式 :end -->
+		
+		<!-- 以下是配置单个redis的方式:start -->
+		<property name="hostName" value="${redis.ip.0}" />
+		<property name="port" value="${redis.port.0}" />
+		<property name="password" value="${redis.pass}"/>
+		<property name="timeout" value="${redis.timeout}"/>
+		<property name="database" value="${redis.default.db}"/>
+		<property name="poolConfig" ref="jedisPoolConfig" />
+		
+		<!-- 以上是配置单个redis的方式:end-->
+	</bean>
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
+	<bean id="redisService" class="cn.m1c.gczj.common.service.impl.RedisServiceImpl">
+		<property name="redisTemplate" ref="redisTemplate" />
+		<property name="expirationtime" value="${redis.expiration}"/>
+	</bean>
+</beans>

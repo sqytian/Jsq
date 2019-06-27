@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.person.dao.AdminDao" >
+    <resultMap id="BaseResultMap" type="cn.m1c.gczj.person.model.Admin" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="BIGINT" />
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+        <result column="role" property="role" jdbcType="INTEGER" />
+        <result column="times" property="times" jdbcType="INTEGER" />
+        <result column="created" property="created" jdbcType="TIMESTAMP" />
+        <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="BIT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, password, mobile, nickname, role, times,created, updated, deleted
+    </sql>
+    <sql id="Find_Where" >
+        <where >
+            <if test="password != null and password !='' " >
+                 AND password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="mobile != null and mobile !='' " >
+                 AND mobile = #{mobile,jdbcType=BIGINT}
+            </if>
+            <if test="nickname != null and nickname !='' " >
+                 AND nickname = #{nickname,jdbcType=VARCHAR}
+            </if>
+            <if test="role != null and role !='' " >
+                 AND role = #{role,jdbcType=INTEGER}
+            </if>
+            <if test="times != null and times !='' " >
+                 AND times = #{times,jdbcType=INTEGER}
+            </if>
+            <if test="created != null and created !='' " >
+                 AND created = #{created,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updated != null and updated !='' " >
+                 AND updated = #{updated,jdbcType=TIMESTAMP}
+            </if>
+            <if test="deleted != null and deleted !='' " >
+                 AND deleted = #{deleted,jdbcType=BIT}
+            </if>
+        </where>
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from admin
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="queryByMobile" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from admin
+        where mobile = #{mobile,jdbcType=BIGINT}
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from admin
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="cn.m1c.gczj.person.model.Admin" >
+        insert into admin (id, password, 
+            mobile, nickname, role, times,
+            created, updated, deleted
+            )
+        values (#{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+            #{mobile,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER},
+            #{times,jdbcType=INTEGER},  
+            #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.m1c.gczj.person.model.Admin" >
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="nickname != null" >
+                nickname,
+            </if>
+            <if test="role != null" >
+                role,
+            </if>
+            <if test="times != null" >
+                times,
+            </if>
+            <if test="created != null" >
+                created,
+            </if>
+            <if test="updated != null" >
+                updated,
+            </if>
+            <if test="deleted != null" >
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=BIGINT},
+            </if>
+            <if test="nickname != null" >
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null" >
+                #{role,jdbcType=INTEGER},
+            </if>
+            <if test="times != null" >
+                #{times,jdbcType=INTEGER},
+            </if>
+            <if test="created != null" >
+                #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.person.model.Admin" >
+        update admin
+        <set >
+            <if test="password != null" >
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=BIGINT},
+            </if>
+            <if test="nickname != null" >
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null" >
+                role = #{role,jdbcType=INTEGER},
+            </if>
+            <if test="times != null" >
+                role = #{times,jdbcType=INTEGER},
+            </if>
+            <if test="created != null" >
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                updated = #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.person.model.Admin" >
+        update admin
+        set 
+            password = #{password,jdbcType=VARCHAR},
+            mobile = #{mobile,jdbcType=BIGINT},
+            nickname = #{nickname,jdbcType=VARCHAR},
+            role = #{role,jdbcType=INTEGER},
+            times = #{times,jdbcType=INTEGER},
+            created = #{created,jdbcType=TIMESTAMP},
+            updated = #{updated,jdbcType=TIMESTAMP},
+            deleted = #{deleted,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="queryByModel" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.person.model.Admin" >
+        select 
+        <include refid="Base_Column_List" />
+        from admin
+        <include refid="Find_Where" />
+    </select>
+</mapper>

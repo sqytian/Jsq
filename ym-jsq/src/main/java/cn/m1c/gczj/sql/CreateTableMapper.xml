@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.CreateTableDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.CreateTable" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="item" property="item" jdbcType="VARCHAR" />
+    <result column="content_type" property="contentType" jdbcType="VARCHAR" />
+    <result column="value_range" property="valueRange" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="parameters" property="parameters" jdbcType="VARCHAR" />
+    <result column="table_type" property="tableType" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="item_key" property="itemKey" jdbcType="VARCHAR" />
+    <result column="default_value" property="defaultValue" jdbcType="VARCHAR" />
+    <result column="formula_id" property="formulaId" jdbcType="VARCHAR" />
+    <result column="reserved_first" property="reservedFirst" jdbcType="VARCHAR" />
+    <result column="reserved_second" property="reservedSecond" jdbcType="VARCHAR" />
+    <result column="preset_value" property="presetValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, item, content_type, value_range, unit, parameters, table_type, order_number, 
+    deleted, updated, created, remark, item_key, default_value, formula_id, reserved_first, 
+    reserved_second,preset_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from create_table
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getTableList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from create_table
+		       ${sqlCondition} ${orderBy}
+  </select>
+  <select id="getTableAll" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from create_table
+		       
+  </select>
+   <select id="getCostTableList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from create_table
+		       ${sqlCondition} ${orderBy}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from create_table
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.m1c.gczj.biz.model.CreateTable" >
+    insert into create_table (id, type, item, 
+      content_type, value_range, unit, 
+      parameters, table_type, order_number, 
+      deleted, updated, created, 
+      remark, item_key, default_value, 
+      formula_id, reserved_first, reserved_second, 
+      preset_value)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, 
+      #{contentType,jdbcType=VARCHAR}, #{valueRange,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{parameters,jdbcType=VARCHAR}, #{tableType,jdbcType=INTEGER}, #{orderNumber,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=BIT}, #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{itemKey,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, 
+      #{formulaId,jdbcType=VARCHAR}, #{reservedFirst,jdbcType=VARCHAR}, #{reservedSecond,jdbcType=VARCHAR}, 
+      #{presetValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.CreateTable" >
+    insert into create_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="item != null" >
+        item,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="valueRange != null" >
+        value_range,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="parameters != null" >
+        parameters,
+      </if>
+      <if test="tableType != null" >
+        table_type,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="itemKey != null" >
+        item_key,
+      </if>
+      <if test="defaultValue != null" >
+        default_value,
+      </if>
+      <if test="formulaId != null" >
+        formula_id,
+      </if>
+      <if test="reservedFirst != null" >
+        reserved_first,
+      </if>
+      <if test="reservedSecond != null" >
+        reserved_second,
+      </if>
+      <if test="presetValue != null" >
+        preset_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="valueRange != null" >
+        #{valueRange,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="parameters != null" >
+        #{parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="tableType != null" >
+        #{tableType,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="itemKey != null" >
+        #{itemKey,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null" >
+        #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="formulaId != null" >
+        #{formulaId,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedFirst != null" >
+        #{reservedFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedSecond != null" >
+        #{reservedSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="presetValue != null" >
+        #{presetValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.CreateTable" >
+    update create_table
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="item != null" >
+        item = #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null" >
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="valueRange != null" >
+        value_range = #{valueRange,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="parameters != null" >
+        parameters = #{parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="tableType != null" >
+        table_type = #{tableType,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="itemKey != null" >
+        item_key = #{itemKey,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null" >
+        default_value = #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="formulaId != null" >
+        formula_id = #{formulaId,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedFirst != null" >
+        reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedSecond != null" >
+        reserved_second = #{reservedSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="presetValue != null" >
+        preset_value = #{presetValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.m1c.gczj.biz.model.CreateTable" >
+    update create_table
+    set type = #{type,jdbcType=INTEGER},
+      item = #{item,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      value_range = #{valueRange,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      parameters = #{parameters,jdbcType=VARCHAR},
+      table_type = #{tableType,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=BIT},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      item_key = #{itemKey,jdbcType=VARCHAR},
+      default_value = #{defaultValue,jdbcType=VARCHAR},
+      formula_id = #{formulaId,jdbcType=VARCHAR},
+      reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      reserved_second = #{reservedSecond,jdbcType=VARCHAR},
+      preset_value = #{presetValue,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.CreateTable" >
+    update create_table
+    set type = #{type,jdbcType=INTEGER},
+      item = #{item,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      value_range = #{valueRange,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      parameters = #{parameters,jdbcType=VARCHAR},
+      table_type = #{tableType,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=BIT},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      created = #{created,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      item_key = #{itemKey,jdbcType=VARCHAR},
+      default_value = #{defaultValue,jdbcType=VARCHAR},
+      formula_id = #{formulaId,jdbcType=VARCHAR},
+      reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      reserved_second = #{reservedSecond,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

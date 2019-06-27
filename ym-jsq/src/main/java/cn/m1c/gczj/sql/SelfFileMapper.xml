@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.SelfFileDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.SelfFile" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="document_name" property="documentName" jdbcType="VARCHAR" />
+    <result column="url_type" property="urlType" jdbcType="VARCHAR" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="reserved_first" property="reservedFirst" jdbcType="VARCHAR" />
+    <result column="reserved_second" property="reservedSecond" jdbcType="VARCHAR" />
+    <result column="document_description" property="documentDescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type_name, order_num, document_name, url_type, file_url, image_url, created, 
+    updated, deleted, remark, reserved_first, reserved_second,document_description
+  </sql>
+  
+   <select id="getListByType" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from self_file
+		       ${sqlCondition} ${orderBy}
+  </select>
+   <select id="getFileByName"  resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from self_file  ${sqlCondition}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from self_file
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from self_file
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.m1c.gczj.biz.model.SelfFile" >
+    insert into self_file (id, type_name, order_num, 
+      document_name, url_type, file_url, 
+      image_url, created, updated, 
+      deleted, remark, reserved_first, 
+      reserved_second, document_description
+      )
+    values (#{id,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
+      #{documentName,jdbcType=VARCHAR}, #{urlType,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{reservedFirst,jdbcType=VARCHAR}, 
+      #{reservedSecond,jdbcType=VARCHAR}, #{documentDescription,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.SelfFile" >
+    insert into self_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="documentName != null" >
+        document_name,
+      </if>
+      <if test="urlType != null" >
+        url_type,
+      </if>
+      <if test="fileUrl != null" >
+        file_url,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="reservedFirst != null" >
+        reserved_first,
+      </if>
+      <if test="reservedSecond != null" >
+        reserved_second,
+      </if>
+      <if test="documentDescription != null" >
+        document_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="documentName != null" >
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="urlType != null" >
+        #{urlType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedFirst != null" >
+        #{reservedFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedSecond != null" >
+        #{reservedSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="documentDescription != null" >
+        #{documentDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.SelfFile" >
+    update self_file
+    <set >
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="documentName != null" >
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="urlType != null" >
+        url_type = #{urlType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedFirst != null" >
+        reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="reservedSecond != null" >
+        reserved_second = #{reservedSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="documentDescription != null" >
+        document_description = #{documentDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.m1c.gczj.biz.model.SelfFile" >
+    update self_file
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      document_name = #{documentName,jdbcType=VARCHAR},
+      url_type = #{urlType,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      reserved_second = #{reservedSecond,jdbcType=VARCHAR},
+      document_description = #{documentDescription,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.SelfFile" >
+    update self_file
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      document_name = #{documentName,jdbcType=VARCHAR},
+      url_type = #{urlType,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      reserved_first = #{reservedFirst,jdbcType=VARCHAR},
+      reserved_second = #{reservedSecond,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

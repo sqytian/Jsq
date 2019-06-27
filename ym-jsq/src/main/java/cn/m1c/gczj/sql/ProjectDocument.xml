@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.ProjectDocumentDao" >
+    <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.ProjectDocument" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="standard_document" property="standardDocument" jdbcType="LONGVARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="created" property="created" jdbcType="TIMESTAMP" />
+        <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="BIT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, standard_document, type, created, updated, deleted
+    </sql>
+    <sql id="Find_Where" >
+        <where >
+            <if test="standardDocument != null and standardDocument !='' " >
+                 AND standard_document = #{standardDocument,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="type != null and type !='' " >
+                 AND type = #{type,jdbcType=INTEGER}
+            </if>
+            <if test="created != null and created !='' " >
+                 AND created = #{created,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updated != null and updated !='' " >
+                 AND updated = #{updated,jdbcType=TIMESTAMP}
+            </if>
+            <if test="deleted != null and deleted !='' " >
+                 AND deleted = #{deleted,jdbcType=BIT}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from project_document
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getStandardDocument" resultMap="BaseResultMap" parameterType="int" >
+        select 
+        <include refid="Base_Column_List" />
+        from project_document
+        where type = #{type,jdbcType=INTEGER} ORDER BY created ASC
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from project_document
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="cn.m1c.gczj.biz.model.ProjectDocument" >
+        insert into project_document (id, standard_document, type, 
+            created, updated, deleted
+            )
+        values (#{id,jdbcType=VARCHAR}, #{standardDocument,jdbcType=LONGVARCHAR}, #{type,jdbcType=INTEGER}, 
+            #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.ProjectDocument" >
+        insert into project_document
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="standardDocument != null" >
+                standard_document,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="created != null" >
+                created,
+            </if>
+            <if test="updated != null" >
+                updated,
+            </if>
+            <if test="deleted != null" >
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="standardDocument != null" >
+                #{standardDocument,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="created != null" >
+                #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.ProjectDocument" >
+        update project_document
+        <set >
+            <if test="standardDocument != null" >
+                standard_document = #{standardDocument,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="created != null" >
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                updated = #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.ProjectDocument" >
+        update project_document
+        set standard_document = #{standardDocument,jdbcType=LONGVARCHAR},
+            type = #{type,jdbcType=INTEGER},
+            created = #{created,jdbcType=TIMESTAMP},
+            updated = #{updated,jdbcType=TIMESTAMP},
+            deleted = #{deleted,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="queryByModel" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.biz.model.ProjectDocument" >
+        select 
+        <include refid="Base_Column_List" />
+        from standardDocument
+        <include refid="Find_Where" />
+    </select>
+</mapper>

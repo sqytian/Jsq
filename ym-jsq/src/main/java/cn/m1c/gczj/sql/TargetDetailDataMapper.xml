@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.TargetDetailDataDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.TargetDetailData" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="year_data" property="yearData" jdbcType="INTEGER" />
+    <result column="month_data" property="monthData" jdbcType="INTEGER" />
+    <result column="price_data" property="priceData" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, year_data, month_data, price_data, project_name, created, updated, deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from target_detail_data
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from target_detail_data
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+    <select id="getListAll" resultMap="BaseResultMap"  >
+        select 
+        <include refid="Base_Column_List" />
+        from target_detail_data ${sqlCondition}
+    </select>
+  
+  <insert id="insert" parameterType="cn.m1c.gczj.biz.model.TargetDetailData" >
+    insert into target_detail_data (id, year_data, month_data, 
+      price_data, project_name, created, 
+      updated, deleted)
+    values (#{id,jdbcType=VARCHAR}, #{yearData,jdbcType=INTEGER}, #{monthData,jdbcType=INTEGER}, 
+      #{priceData,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.TargetDetailData" >
+    insert into target_detail_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="yearData != null" >
+        year_data,
+      </if>
+      <if test="monthData != null" >
+        month_data,
+      </if>
+      <if test="priceData != null" >
+        price_data,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="yearData != null" >
+        #{yearData,jdbcType=INTEGER},
+      </if>
+      <if test="monthData != null" >
+        #{monthData,jdbcType=INTEGER},
+      </if>
+      <if test="priceData != null" >
+        #{priceData,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.TargetDetailData" >
+    update target_detail_data
+    <set >
+      <if test="yearData != null" >
+        year_data = #{yearData,jdbcType=INTEGER},
+      </if>
+      <if test="monthData != null" >
+        month_data = #{monthData,jdbcType=INTEGER},
+      </if>
+      <if test="priceData != null" >
+        price_data = #{priceData,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.TargetDetailData" >
+    update target_detail_data
+    set year_data = #{yearData,jdbcType=INTEGER},
+      month_data = #{monthData,jdbcType=INTEGER},
+      price_data = #{priceData,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

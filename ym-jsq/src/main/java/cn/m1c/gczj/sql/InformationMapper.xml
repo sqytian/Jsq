@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.InformationDao" >
+    <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.Information" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="LONGVARCHAR" />
+        <result column="content" property="content" jdbcType="LONGVARCHAR" />
+        <result column="time" property="time" jdbcType="VARCHAR" />
+        <result column="created" property="created" jdbcType="TIMESTAMP" />
+        <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="BIT" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="number" property="number" jdbcType="VARCHAR" />
+        <result column="classify" property="classify" jdbcType="VARCHAR" />
+        <result column="putaway" property="putaway" jdbcType="BIT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, title, content, time, created, updated, deleted, type, number, classify, putaway
+    </sql>
+    <sql id="Find_Where" >
+        <where >
+            <if test="title != null and title !='' " >
+                 AND title = #{title,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="content != null and content !='' " >
+                 AND content = #{content,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="time != null and time !='' " >
+                 AND time = #{time,jdbcType=VARCHAR}
+            </if>
+            <if test="created != null and created !='' " >
+                 AND created = #{created,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updated != null and updated !='' " >
+                 AND updated = #{updated,jdbcType=TIMESTAMP}
+            </if>
+            <if test="deleted != null and deleted !='' " >
+                 AND deleted = #{deleted,jdbcType=BIT}
+            </if>
+            <if test="type != null and type !='' " >
+                 AND type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="number != null and number !='' " >
+                 AND number = #{number,jdbcType=VARCHAR}
+            </if>
+            <if test="classify != null and classify !='' " >
+                 AND classify = #{classify,jdbcType=VARCHAR}
+            </if>
+            <if test="putaway != null and putaway !='' " >
+                 AND putaway = #{putaway,jdbcType=BIT}
+            </if>
+        </where>
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from information
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getInformationList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from information
+		       ${sqlCondition} ${orderBy}
+	</select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from information
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="cn.m1c.gczj.biz.model.Information" >
+        insert into information (id, title, content, 
+            time, created, updated, 
+            deleted, type, number, 
+            classify, putaway)
+        values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+            #{time,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+            #{deleted,jdbcType=BIT}, #{type,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+            #{classify,jdbcType=VARCHAR}, #{putaway,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.Information" >
+        insert into information
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="time != null" >
+                time,
+            </if>
+            <if test="created != null" >
+                created,
+            </if>
+            <if test="updated != null" >
+                updated,
+            </if>
+            <if test="deleted != null" >
+                deleted,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="number != null" >
+                number,
+            </if>
+            <if test="classify != null" >
+                classify,
+            </if>
+            <if test="putaway != null" >
+                putaway,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="content != null" >
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="time != null" >
+                #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null" >
+                #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=BIT},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="number != null" >
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="classify != null" >
+                #{classify,jdbcType=VARCHAR},
+            </if>
+            <if test="putaway != null" >
+                #{putaway,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.Information" >
+        update information
+        <set >
+            <if test="title != null" >
+                title = #{title,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="content != null" >
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="time != null" >
+                time = #{time,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null" >
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                updated = #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="number != null" >
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="classify != null" >
+                classify = #{classify,jdbcType=VARCHAR},
+            </if>
+            <if test="putaway != null" >
+                putaway = #{putaway,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.Information" >
+        update information
+        set title = #{title,jdbcType=LONGVARCHAR},
+            content = #{content,jdbcType=LONGVARCHAR},
+            time = #{time,jdbcType=VARCHAR},
+            created = #{created,jdbcType=TIMESTAMP},
+            updated = #{updated,jdbcType=TIMESTAMP},
+            deleted = #{deleted,jdbcType=BIT},
+            type = #{type,jdbcType=VARCHAR},
+            number = #{number,jdbcType=VARCHAR},
+            classify = #{classify,jdbcType=VARCHAR},
+            putaway = #{putaway,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="queryByModel" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.biz.model.Information" >
+        select 
+        <include refid="Base_Column_List" />
+        from information
+        <include refid="Find_Where" />
+    </select>
+</mapper>

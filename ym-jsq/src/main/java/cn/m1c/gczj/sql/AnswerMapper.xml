@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.AnswerDao" >
+    <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.Answer" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+        <result column="question" property="question" jdbcType="LONGVARCHAR" />
+        <result column="created" property="created" jdbcType="TIMESTAMP" />
+        <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="BIT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, answer, question, created, updated, deleted
+    </sql>
+    <sql id="Find_Where" >
+        <where >
+            <if test="answer != null and answer !='' " >
+                 AND answer = #{answer,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="question != null and question !='' " >
+                 AND question = #{question,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="created != null and created !='' " >
+                 AND created = #{created,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updated != null and updated !='' " >
+                 AND updated = #{updated,jdbcType=TIMESTAMP}
+            </if>
+            <if test="deleted != null and deleted !='' " >
+                 AND deleted = #{deleted,jdbcType=BIT}
+            </if>
+        </where>
+    </sql>
+    
+     <select id="getAnswerList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from answer
+		       ${sqlCondition} ${orderBy}
+	</select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from answer
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from answer
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="cn.m1c.gczj.biz.model.Answer" >
+        insert into answer (id, answer, question, 
+            created, updated, deleted
+            )
+        values (#{id,jdbcType=VARCHAR}, #{answer,jdbcType=LONGVARCHAR}, #{question,jdbcType=LONGVARCHAR}, 
+            #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.Answer" >
+        insert into answer
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="answer != null" >
+                answer,
+            </if>
+            <if test="question != null" >
+                question,
+            </if>
+            <if test="created != null" >
+                created,
+            </if>
+            <if test="updated != null" >
+                updated,
+            </if>
+            <if test="deleted != null" >
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null" >
+                #{answer,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="question != null" >
+                #{question,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="created != null" >
+                #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.Answer" >
+        update answer
+        <set >
+            <if test="answer != null" >
+                answer = #{answer,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="question != null" >
+                question = #{question,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="created != null" >
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updated != null" >
+                updated = #{updated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.Answer" >
+        update answer
+        set answer = #{answer,jdbcType=LONGVARCHAR},
+            question = #{question,jdbcType=LONGVARCHAR},
+            created = #{created,jdbcType=TIMESTAMP},
+            updated = #{updated,jdbcType=TIMESTAMP},
+            deleted = #{deleted,jdbcType=BIT}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="queryByModel" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.biz.model.Answer" >
+        select 
+        <include refid="Base_Column_List" />
+        from answer
+        <include refid="Find_Where" />
+    </select>
+</mapper>

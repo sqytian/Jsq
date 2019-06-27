@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.m1c.gczj.biz.dao.CalculationFormulaDao" >
+  <resultMap id="BaseResultMap" type="cn.m1c.gczj.biz.model.CalculationFormula" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="VARCHAR" />
+    <result column="rate_level" property="rateLevel" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="calculator_type" property="calculatorType" jdbcType="INTEGER" />
+    <result column="calculator_item" property="calculatorItem" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, rate, rate_level, price, calculator_type, calculator_item, created, updated, 
+    deleted, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from calculation_formula
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getCalculationFormulaList" parameterType="cn.m1c.frame.page.PageBaseModel" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> from calculation_formula
+		       ${sqlCondition} ${orderBy}
+  </select>
+  
+   <select id="getCalculationFormulaListByMoney" resultMap="BaseResultMap" parameterType="cn.m1c.gczj.biz.model.CalculationFormula" >
+        select 
+        <include refid="Base_Column_List" />
+        from calculation_formula WHERE #{price,jdbcType=DECIMAL}>=price
+        AND deleted = 0 and calculator_type=#{calculatorType,jdbcType=INTEGER}
+        ORDER BY rate_level DESC
+    </select>
+   <select id="getListAll" resultMap="BaseResultMap"  >
+        select 
+        <include refid="Base_Column_List" />
+        from calculation_formula ${sqlCondition}
+    </select>
+   <select id="getCalculationFormulaListByMoneyItem" resultMap="BaseResultMap"  >
+        select 
+        <include refid="Base_Column_List" />
+        from calculation_formula ${sqlCondition}
+    </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from calculation_formula
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.m1c.gczj.biz.model.CalculationFormula" >
+    insert into calculation_formula (id, rate, rate_level, 
+      price, calculator_type, calculator_item, 
+      created, updated, deleted, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, #{rateLevel,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{calculatorType,jdbcType=INTEGER}, #{calculatorItem,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.m1c.gczj.biz.model.CalculationFormula" >
+    insert into calculation_formula
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="rateLevel != null" >
+        rate_level,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="calculatorType != null" >
+        calculator_type,
+      </if>
+      <if test="calculatorItem != null" >
+        calculator_item,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="rateLevel != null" >
+        #{rateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="calculatorType != null" >
+        #{calculatorType,jdbcType=INTEGER},
+      </if>
+      <if test="calculatorItem != null" >
+        #{calculatorItem,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.m1c.gczj.biz.model.CalculationFormula" >
+    update calculation_formula
+    <set >
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="rateLevel != null" >
+        rate_level = #{rateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="calculatorType != null" >
+        calculator_type = #{calculatorType,jdbcType=INTEGER},
+      </if>
+      <if test="calculatorItem != null" >
+        calculator_item = #{calculatorItem,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.m1c.gczj.biz.model.CalculationFormula" >
+    update calculation_formula
+    set rate = #{rate,jdbcType=VARCHAR},
+      rate_level = #{rateLevel,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      calculator_type = #{calculatorType,jdbcType=INTEGER},
+      calculator_item = #{calculatorItem,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
